@@ -8,9 +8,10 @@ export default function Home() {
         <meta name="description" content="Weather App" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
       </Head>
-      <main className='main' style={{ 'height': '100vh', 'background': '#1f2745' }}>
-
+      <main className='main' style={{ 'height': '100vh'}}>
+        
       </main>
     </>
   )

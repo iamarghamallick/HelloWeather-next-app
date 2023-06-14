@@ -1,1 +1,27 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+body {
+  background: #1f2745;
+}
+
+.top-locations-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.top-location-card {
+  width: 100%;
+  /* padding: 1rem; */
+}
+
+@media only screen and (max-width: 1024px) {
+  .top-locations-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (max-width: 425px) {
+  .top-locations-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
