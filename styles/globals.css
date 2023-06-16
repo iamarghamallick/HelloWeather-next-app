@@ -24,12 +24,23 @@ body {
   background-color: rgb(56, 56, 131);
 }
 
+.weather-headline-left .temp {
+  font-size: 3rem;
+}
 .weather-headline-left .condition {
   font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .top-location-card {
   border: none;
+}
+.top-location-card img {
+  height: 250px;
+}
+
+.weather-headline-right img {
+  width: 100px;
 }
 
 /* media quaries  */
