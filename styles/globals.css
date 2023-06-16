@@ -4,6 +4,10 @@ body {
   background: #1f2745;
 }
 
+.navbar-toggler {
+  background: #0d6efd;
+}
+
 .top-locations-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -15,6 +19,20 @@ body {
   /* padding: 1rem; */
 }
 
+/* weather.js  */
+.weather-container {
+  background-color: rgb(56, 56, 131);
+}
+
+.weather-headline-left .condition {
+  font-weight: bold;
+}
+
+.top-location-card {
+  border: none;
+}
+
+/* media quaries  */
 @media only screen and (max-width: 1024px) {
   .top-locations-container {
     grid-template-columns: repeat(2, 1fr);
@@ -23,5 +41,12 @@ body {
 @media only screen and (max-width: 425px) {
   .top-locations-container {
     grid-template-columns: repeat(1, 1fr);
+  }
+  .weather-headline-left h1 {
+    font-size: 2rem;
+  }
+  .fa-3x {
+    width: 50px;
+    height: 50px;
   }
 }

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faWind } from '@fortawesome/free-solid-svg-icons'
 
 const weather = () => {
     return (
@@ -19,6 +19,18 @@ const weather = () => {
                         <span className="input-group-text" id="basic-addon1"><FontAwesomeIcon icon={faLocationDot} /></span>
                         <input type="text" className="form-control bg-dark text-light" placeholder="Enter place" aria-label="Location" aria-describedby="basic-addon1" />
                         <a href="#" className="btn btn-primary mx-2 border border-rounded" aria-current="page">Search</a>
+                    </div>
+
+                    <div className="weather-container my-3 rounded" >
+                        <div className="weather-location text-light rounded bg-dark px-3 py-1">Kolkata, West Bengal As of time here</div>
+                        <div className="weather-headline d-flex justify-content-between align-items-center">
+                            <div className="weather-headline-left px-3">
+                                <h1 className="temp text-light">32 &#8451;</h1>
+                                <p className="condition text-light">Haze</p>
+                                <p className="high-low-temp text-light">Day 38 &#8451; | Night 30 &#8451;</p>
+                            </div>
+                            <div className="weather-headline-right px-5 align-items-center"><FontAwesomeIcon icon={faWind} className='fa-3x text-light'/></div>
+                        </div>
                     </div>
 
                     <h2 className="heading text-light text-center m-4">Top Locations Around The Globe</h2>
