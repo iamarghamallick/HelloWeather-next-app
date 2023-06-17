@@ -1,5 +1,28 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+/* customizing scrollbar  */
+
+::-webkit-scrollbar {
+  width: 0.2rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: gray;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 0, 34);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(10, 0, 145);
+}
+
+/* customizing scrollbar ends here */
+
 body {
   background: #1f2745;
 }
@@ -63,13 +86,54 @@ body {
   justify-content: center;
   padding: 1rem 0.2rem;
   margin: 0 0.5rem;
-  width: 150px;
+  min-width: 150px;
+}
+
+/* current weather details  */
+.current-weather-details-container {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.current-weather-details-container-left, .current-weather-details-container-right {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  margin: 0 1rem;
+  padding: 1rem;
+}
+
+.current-details-box {
+  background: #1f2745;
+  border-radius: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid gray;
+}
+
+.sunrise-set {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* media quaries  */
 @media only screen and (max-width: 1024px) {
   .top-locations-container {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (max-width: 768px) {
+  .current-weather-details-container {
+    flex-direction: column;
+  }
+  .current-weather-details-container-left, .current-weather-details-container-right {
+    width: 95%;
   }
 }
 @media only screen and (max-width: 425px) {

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot, faWind, faCloudRain } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faWind, faCloudRain, faTemperatureHalf, faDroplet, faArrowsToDot, faEye, faSun, faMoon, faCloudSun, faUpload, faDownload, faCloud } from '@fortawesome/free-solid-svg-icons'
 
 const weather = () => {
     const API_KEY = "c4910bb187874a6893f170604232603"
@@ -133,6 +133,55 @@ const weather = () => {
                                 <div className="raining d-flex justify-content-center align-items-center mt-1">
                                     <FontAwesomeIcon icon={faCloudRain} className='text-light' />
                                     <p className='m-0 mx-2'>{weather.forecast.forecastday[0].hour[0].chance_of_rain} &#x25;</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* weather details - today */}
+                        <div className="weather-location text-light rounded bg-dark px-3 py-1">Weather Today in {weather.location.name}, {weather.location.region}</div>
+                        <div className="current-weather-details-container">
+                            <div className="current-weather-details-container-left">
+                                <div className="feels-like-temp">
+                                    <h1>{weather.current.feelslike_c} &#8451;</h1>
+                                    <p>Feels Like</p>
+                                </div>
+                                <div className="current-details-box">
+                                    <div className="current-details-box-left"><FontAwesomeIcon icon={faTemperatureHalf} className='text-light' /> High / Low</div>
+                                    <div className="current-details-box-right">{weather.forecast.forecastday[0].day.maxtemp_c}&deg; / {weather.forecast.forecastday[0].day.mintemp_c}&deg;</div>
+                                </div>
+                                <div className="current-details-box">
+                                    <div className="current-details-box-left"><FontAwesomeIcon icon={faDroplet} className='text-light' /> Humidity</div>
+                                    <div className="current-details-box-right">{weather.current.humidity} &#x25;</div>
+                                </div>
+                                <div className="current-details-box">
+                                    <div className="current-details-box-left"><FontAwesomeIcon icon={faArrowsToDot} className='text-light' /> Pressure</div>
+                                    <div className="current-details-box-right">{weather.current.pressure_mb} mb</div>
+                                </div>
+                                <div className="current-details-box">
+                                    <div className="current-details-box-left"><FontAwesomeIcon icon={faEye} className='text-light' /> Visibility</div>
+                                    <div className="current-details-box-right">{weather.current.vis_km} km</div>
+                                </div>
+                            </div>
+                            <div className="current-weather-details-container-right">
+                                <div className="sunrise-set">
+                                    <span className=''><FontAwesomeIcon icon={faSun} className='fa-3x text-light' /></span>
+                                    <p className='text-center'><FontAwesomeIcon icon={faUpload} className='text-light' /> {weather.forecast.forecastday[0].astro.sunrise} <FontAwesomeIcon icon={faDownload} className='text-light' /> {weather.forecast.forecastday[0].astro.sunset}</p>
+                                </div>
+                                <div className="current-details-box">
+                                    <div className="current-details-box-left"><FontAwesomeIcon icon={faWind} className='text-light' /> Wind</div>
+                                    <div className="current-details-box-right">{weather.current.wind_kph} km/h</div>
+                                </div>
+                                <div className="current-details-box">
+                                    <div className="current-details-box-left"><FontAwesomeIcon icon={faCloud} className='text-light' /> Cloud Cover</div>
+                                    <div className="current-details-box-right">{weather.current.cloud}&#x25;</div>
+                                </div>
+                                <div className="current-details-box">
+                                    <div className="current-details-box-left"><FontAwesomeIcon icon={faSun} className='text-light' /> UV Index</div>
+                                    <div className="current-details-box-right">{weather.current.uv} of 10</div>
+                                </div>
+                                <div className="current-details-box">
+                                    <div className="current-details-box-left"><FontAwesomeIcon icon={faMoon} className='text-light' /> Moon Phase</div>
+                                    <div className="current-details-box-right">{weather.forecast.forecastday[0].astro.moon_phase}</div>
                                 </div>
                             </div>
                         </div>
