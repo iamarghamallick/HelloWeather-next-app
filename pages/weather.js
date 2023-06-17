@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faWind, faCloudRain, faTemperatureHalf, faDroplet, faArrowsToDot, faEye, faSun, faMoon, faCloudSun, faUpload, faDownload, faCloud } from '@fortawesome/free-solid-svg-icons'
 
 const weather = () => {
-    const API_KEY = "c4910bb187874a6893f170604232603"
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY
     let baseUrl = "https://api.weatherapi.com/v1/forecast.json?key=" + API_KEY + "&q="
 
     const [query, setQuery] = useState("Kolkata")
@@ -143,7 +143,7 @@ const weather = () => {
                             <div className="current-weather-details-container-left">
                                 <div className="feels-like-temp">
                                     <h1>{weather.current.feelslike_c} &#8451;</h1>
-                                    <p>Feels Like</p>
+                                    <p className='text-center'>Feels Like</p>
                                 </div>
                                 <div className="current-details-box">
                                     <div className="current-details-box-left"><FontAwesomeIcon icon={faTemperatureHalf} className='text-light' /> High / Low</div>
