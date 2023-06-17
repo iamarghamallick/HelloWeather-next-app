@@ -21,7 +21,7 @@ body {
 
 /* weather.js  */
 .weather-container {
-  background-color: rgb(56, 56, 131);
+  background-color: #383883;
 }
 
 .weather-headline-left .temp {
@@ -41,6 +41,29 @@ body {
 
 .weather-headline-right img {
   width: 100px;
+}
+
+/* quick-forecast-container  */
+.quick-forecast-container {
+  color: white;
+  /* background: rgb(135, 227, 255); */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0.5rem;
+  overflow-x: scroll;
+  padding-bottom: 0.5rem;
+}
+
+.quick-forecast-box {
+  background: #1f2745;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.2rem;
+  margin: 0 0.5rem;
+  width: 150px;
 }
 
 /* media quaries  */

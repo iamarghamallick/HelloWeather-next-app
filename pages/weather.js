@@ -2,22 +2,28 @@ import Head from 'next/head'
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot, faWind } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faWind, faCloudRain } from '@fortawesome/free-solid-svg-icons'
 
 const weather = () => {
     const API_KEY = "c4910bb187874a6893f170604232603"
-    let baseUrl = "https://api.weatherapi.com/v1/forecast.json?key="+API_KEY+"&q="
+    let baseUrl = "https://api.weatherapi.com/v1/forecast.json?key=" + API_KEY + "&q="
 
     const [query, setQuery] = useState("Kolkata")
     const [weather, setWeather] = useState("")
     const [london, setLondon] = useState("")
     const [kolkata, setKolkata] = useState("")
     const [newyork, setNewyork] = useState("")
+    const [errorInWeather, setErrorInWeather] = useState("")
 
     const fetchWeather = async (query) => {
-        let weather = await fetch(baseUrl + query)
-        let response = await weather.json()
-        return response
+        try {
+            let weather = await fetch(baseUrl + query)
+            let response = await weather.json()
+            return response
+        } catch (err) {
+            console.log(err);
+        }
+
     }
     useEffect(() => {
         async function fetchData() {
@@ -27,11 +33,16 @@ const weather = () => {
             setKolkata(kolkata)
             let newyork = await fetchWeather("New York")
             setNewyork(newyork)
+
         }
         async function fetchLastWeather() {
-            let weather = await fetch(baseUrl + localStorage.getItem('userLocation'))
-            let response = await weather.json()
-            setWeather(response)
+            try {
+                let weather = await fetch(baseUrl + localStorage.getItem('userLocation'))
+                let response = await weather.json()
+                setWeather(response)
+            } catch (err) {
+                console.log(err);
+            }
         }
         localStorage.getItem('userLocation') && fetchLastWeather();
         fetchData();
@@ -42,8 +53,13 @@ const weather = () => {
     }
     const handleClick = async () => {
         let w = await fetchWeather(query)
-        setWeather(w)
-        localStorage.setItem('userLocation', query)
+        if (!w.error) {
+            setWeather(w)
+            setErrorInWeather(undefined)
+            localStorage.setItem('userLocation', query)
+        } else {
+            setErrorInWeather(w)
+        }
     }
     return (
         <>
@@ -60,8 +76,12 @@ const weather = () => {
                         <input type="text" className="form-control" placeholder="Your location" aria-label="Location" aria-describedby="basic-addon1" style={{ "background": "white" }} onChange={handleChange} />
                         <button className="btn btn-primary mx-2 border border-rounded" aria-current="page" onClick={handleClick} >Search</button>
                     </div>
+                    {errorInWeather && <div className="error-container">
+                        <p className="error-message text-center text-light">Sorry! {errorInWeather.error.message}</p>
+                    </div>}
 
                     {weather && <div className="weather-container my-3 rounded" >
+                        {/* weather headline  */}
                         <div className="weather-location text-light rounded bg-dark px-3 py-1">{weather.location.name}, {weather.location.region}, {weather.location.country} as on {weather.current.last_updated}</div>
                         <div className="weather-headline d-flex justify-content-between align-items-center">
                             <div className="weather-headline-left px-3">
@@ -74,6 +94,48 @@ const weather = () => {
                                 {<img src={weather.current.condition.icon} alt="weather icon" />}
                             </div>
                         </div>
+
+                        {/* today's quick forecast  */}
+                        <div className="weather-location text-light rounded bg-dark px-3 py-1">Today's forecast for {weather.location.name}, {weather.location.region}</div>
+                        <h4 className="weather-location text-center text-light rounded px-3 py-1">{weather.forecast.forecastday[0].day.condition.text}</h4>
+                        <div className="quick-forecast-container">
+                            <div className="quick-forecast-box">
+                                <h6 className="timing">Morning</h6>
+                                <h1 className="temp">{weather.forecast.forecastday[0].hour[6].temp_c} &#8451;</h1>
+                                <img src={weather.forecast.forecastday[0].hour[6].condition.icon} alt="weather icon" />
+                                <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                    <FontAwesomeIcon icon={faCloudRain} className='text-light' />
+                                    <p className='m-0 mx-2'>{weather.forecast.forecastday[0].hour[6].chance_of_rain} &#x25;</p>
+                                </div>
+                            </div>
+                            <div className="quick-forecast-box">
+                                <h6 className="timing">Afternoon</h6>
+                                <h1 className="temp">{weather.forecast.forecastday[0].hour[12].temp_c} &#8451;</h1>
+                                <img src={weather.forecast.forecastday[0].hour[12].condition.icon} alt="weather icon" />
+                                <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                    <FontAwesomeIcon icon={faCloudRain} className='text-light' />
+                                    <p className='m-0 mx-2'>{weather.forecast.forecastday[0].hour[12].chance_of_rain} &#x25;</p>
+                                </div>
+                            </div>
+                            <div className="quick-forecast-box">
+                                <h6 className="timing">Evening</h6>
+                                <h1 className="temp">{weather.forecast.forecastday[0].hour[19].temp_c} &#8451;</h1>
+                                <img src={weather.forecast.forecastday[0].hour[19].condition.icon} alt="weather icon" />
+                                <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                    <FontAwesomeIcon icon={faCloudRain} className='text-light' />
+                                    <p className='m-0 mx-2'>{weather.forecast.forecastday[0].hour[19].chance_of_rain} &#x25;</p>
+                                </div>
+                            </div>
+                            <div className="quick-forecast-box">
+                                <h6 className="timing">Overnight</h6>
+                                <h1 className="temp">{weather.forecast.forecastday[0].hour[0].temp_c} &#8451;</h1>
+                                <img src={weather.forecast.forecastday[0].hour[0].condition.icon} alt="weather icon" />
+                                <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                    <FontAwesomeIcon icon={faCloudRain} className='text-light' />
+                                    <p className='m-0 mx-2'>{weather.forecast.forecastday[0].hour[0].chance_of_rain} &#x25;</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>}
 
                     <h2 className="heading text-light text-center m-4">Top Locations Around The Globe</h2>
@@ -83,24 +145,24 @@ const weather = () => {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/London_Eye_-_tunliweb.no.JPG/1024px-London_Eye_-_tunliweb.no.JPG" className="card-img-top" alt="London" />
                             <div className="card-body bg-dark text-light">
                                 <h5 className="card-title">London</h5>
-                                <h1 className="card-temp">{london.current.temp_c} &#8451;</h1>
-                                <p className="card-text">{london.current.condition.text}</p>
+                                <h1 className="card-temp text-center">{london.current.temp_c} &#8451;</h1>
+                                <p className="card-text text-center">{london.current.condition.text}</p>
                             </div>
                         </div>}
                         {kolkata && <div className="card top-location-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Ketan_donate4.jpg/1200px-Ketan_donate4.jpg" className="card-img-top" alt="Kolkata" />
                             <div className="card-body bg-dark text-light">
                                 <h5 className="card-title">Kolkata</h5>
-                                <h1 className="card-temp">{kolkata.current.temp_c} &#8451;</h1>
-                                <p className="card-text">{kolkata.current.condition.text}</p>
+                                <h1 className="card-temp text-center">{kolkata.current.temp_c} &#8451;</h1>
+                                <p className="card-text text-center">{kolkata.current.condition.text}</p>
                             </div>
                         </div>}
                         {newyork && <div className="card top-location-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Usa-world-trade-center-skyscrapers-reflection-night-skyline-cityscape.jpg/360px-Usa-world-trade-center-skyscrapers-reflection-night-skyline-cityscape.jpg" className="card-img-top" alt="New York" />
                             <div className="card-body bg-dark text-light">
                                 <h5 className="card-title">New York</h5>
-                                <h1 className="card-temp">{newyork.current.temp_c} &#8451;</h1>
-                                <p className="card-text">{newyork.current.condition.text}</p>
+                                <h1 className="card-temp text-center">{newyork.current.temp_c} &#8451;</h1>
+                                <p className="card-text text-center">{newyork.current.condition.text}</p>
                             </div>
                         </div>}
                     </div>
