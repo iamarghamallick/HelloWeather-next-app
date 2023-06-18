@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Popup from 'reactjs-popup'
+import 'reactjs-popup/dist/index.css'
 
 export default function Home() {
   return (
@@ -9,8 +11,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <main className='main' style={{ 'height': '100vh'}}>
-        
+      <main className='main' style={{ 'height': '100vh' }}>
+        <Popup trigger={<button> Click to open popup </button>}
+          position="right center">
+          <div>GeeksforGeeks</div>
+          <button>Click here</button>
+        </Popup>
       </main>
     </>
   )

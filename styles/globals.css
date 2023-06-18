@@ -50,6 +50,7 @@ body {
 .weather-headline-left .temp {
   font-size: 3rem;
 }
+
 .weather-headline-left .condition {
   font-weight: bold;
   font-size: 1.5rem;
@@ -58,6 +59,7 @@ body {
 .top-location-card {
   border: none;
 }
+
 .top-location-card img {
   height: 250px;
 }
@@ -96,7 +98,9 @@ body {
   justify-content: center;
   align-items: center;
 }
-.current-weather-details-container-left, .current-weather-details-container-right {
+
+.current-weather-details-container-left,
+.current-weather-details-container-right {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -122,29 +126,76 @@ body {
   justify-content: center;
 }
 
+/* hourly forecast box  */
+.hourly-forecast-container {
+  color: white;
+  /* background: rgb(135, 227, 255); */
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 0.1rem;
+  overflow-x: scroll;
+}
+
+.hourly-forecast-box {
+  cursor: pointer;
+  background: #1f2745;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  margin: 0 0.2rem;
+  min-width: 130px;
+}
+
+.hourly-forecast-box h6 {
+  font-size: 0.8rem;
+}
+
+.hourly-forecast-box h5 {
+  font-size: 1rem;
+}
+
+.hourly-forecast-box img {
+  width: 50px;
+}
+
 /* media quaries  */
 @media only screen and (max-width: 1024px) {
   .top-locations-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media only screen and (max-width: 768px) {
   .current-weather-details-container {
     flex-direction: column;
   }
-  .current-weather-details-container-left, .current-weather-details-container-right {
-    width: 95%;
+
+  .current-weather-details-container-left,
+  .current-weather-details-container-right {
+    width: 100%;
   }
 }
+
 @media only screen and (max-width: 425px) {
   .top-locations-container {
     grid-template-columns: repeat(1, 1fr);
   }
+
   .weather-headline-left h1 {
     font-size: 2rem;
   }
+
   .fa-3x {
     width: 50px;
     height: 50px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .weather-headline-right img {
+    width: 80px;
   }
 }

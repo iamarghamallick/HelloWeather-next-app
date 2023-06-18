@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot, faWind, faCloudRain, faTemperatureHalf, faDroplet, faArrowsToDot, faEye, faSun, faMoon, faCloudSun, faUpload, faDownload, faCloud } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faWind, faCloudRain, faTemperatureHalf, faDroplet, faArrowsToDot, faEye, faSun, faMoon, faCloudSun, faUpload, faDownload, faCloud, faUmbrella } from '@fortawesome/free-solid-svg-icons'
 
 const weather = () => {
     const API_KEY = process.env.NEXT_PUBLIC_API_KEY
@@ -25,6 +25,11 @@ const weather = () => {
         }
 
     }
+
+    // const handleHourlyWeather = (item)=> {
+    //     console.log(item.time_epoch)
+    // }
+
     useEffect(() => {
         async function fetchData() {
             let london = await fetchWeather("London")
@@ -87,7 +92,7 @@ const weather = () => {
                             <div className="weather-headline-left px-3">
                                 <h1 className="temp text-light">{weather.current.temp_c} &#8451;</h1>
                                 <p className="condition text-light">{weather.current.condition.text}</p>
-                                <p className="high-low-temp text-light">Day {weather.forecast.forecastday[0].day.maxtemp_c} &#8451; | Night {weather.forecast.forecastday[0].day.mintemp_c} &#8451;</p>
+                                <p className="high-low-temp text-light">Day {weather.forecast.forecastday[0].day.maxtemp_c} &#8451; <br /> Night {weather.forecast.forecastday[0].day.mintemp_c} &#8451;</p>
                             </div>
                             <div className="weather-headline-right px-3 align-items-center">
                                 {/* <FontAwesomeIcon icon={faWind} className='fa-3x text-light' /> */}
@@ -103,37 +108,37 @@ const weather = () => {
                                 <h6 className="timing">Morning</h6>
                                 <h1 className="temp">{weather.forecast.forecastday[0].hour[6].temp_c} &#8451;</h1>
                                 <img src={weather.forecast.forecastday[0].hour[6].condition.icon} alt="weather icon" />
-                                <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                {/* <div className="raining d-flex justify-content-center align-items-center mt-1">
                                     <FontAwesomeIcon icon={faCloudRain} className='text-light' />
                                     <p className='m-0 mx-2'>{weather.forecast.forecastday[0].hour[6].chance_of_rain} &#x25;</p>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="quick-forecast-box">
                                 <h6 className="timing">Afternoon</h6>
                                 <h1 className="temp">{weather.forecast.forecastday[0].hour[12].temp_c} &#8451;</h1>
                                 <img src={weather.forecast.forecastday[0].hour[12].condition.icon} alt="weather icon" />
-                                <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                {/* <div className="raining d-flex justify-content-center align-items-center mt-1">
                                     <FontAwesomeIcon icon={faCloudRain} className='text-light' />
                                     <p className='m-0 mx-2'>{weather.forecast.forecastday[0].hour[12].chance_of_rain} &#x25;</p>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="quick-forecast-box">
                                 <h6 className="timing">Evening</h6>
                                 <h1 className="temp">{weather.forecast.forecastday[0].hour[19].temp_c} &#8451;</h1>
                                 <img src={weather.forecast.forecastday[0].hour[19].condition.icon} alt="weather icon" />
-                                <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                {/* <div className="raining d-flex justify-content-center align-items-center mt-1">
                                     <FontAwesomeIcon icon={faCloudRain} className='text-light' />
                                     <p className='m-0 mx-2'>{weather.forecast.forecastday[0].hour[19].chance_of_rain} &#x25;</p>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="quick-forecast-box">
                                 <h6 className="timing">Overnight</h6>
                                 <h1 className="temp">{weather.forecast.forecastday[0].hour[0].temp_c} &#8451;</h1>
                                 <img src={weather.forecast.forecastday[0].hour[0].condition.icon} alt="weather icon" />
-                                <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                {/* <div className="raining d-flex justify-content-center align-items-center mt-1">
                                     <FontAwesomeIcon icon={faCloudRain} className='text-light' />
                                     <p className='m-0 mx-2'>{weather.forecast.forecastday[0].hour[0].chance_of_rain} &#x25;</p>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
@@ -169,7 +174,7 @@ const weather = () => {
                                 </div>
                                 <div className="current-details-box">
                                     <div className="current-details-box-left"><FontAwesomeIcon icon={faWind} className='text-light' /> Wind</div>
-                                    <div className="current-details-box-right">{weather.current.wind_kph} km/h</div>
+                                    <div className="current-details-box-right">{weather.current.wind_dir} {weather.current.wind_kph} km/h</div>
                                 </div>
                                 <div className="current-details-box">
                                     <div className="current-details-box-left"><FontAwesomeIcon icon={faCloud} className='text-light' /> Cloud Cover</div>
@@ -184,6 +189,26 @@ const weather = () => {
                                     <div className="current-details-box-right">{weather.forecast.forecastday[0].astro.moon_phase}</div>
                                 </div>
                             </div>
+                        </div>
+
+                        {/* hourly forecast  */}
+                        <div className="weather-location text-light rounded bg-dark px-3 py-1">Today's Hourly forecast for {weather.location.name}, {weather.location.region}</div>
+                        <div className="hourly-forecast-container p-2">
+                            {weather.forecast.forecastday[0].hour.map((item) => {
+                                return <div className="hourly-forecast-box toggle" key={item.time_epoch} onClick={function handleHourlyWeather() { console.log(item.time_epoch) }}>
+                                    <h6 className="timing">{item.time.slice(10, 16)}</h6>
+                                    <h5 className="temp">{item.temp_c} &#8451;</h5>
+                                    <img src={item.condition.icon} alt="weather icon" />
+                                    <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                        <FontAwesomeIcon icon={faDroplet} className='text-light' />
+                                        <p className='m-0 mx-2'>{item.humidity} </p>
+                                        <FontAwesomeIcon icon={faUmbrella} className='text-light' />
+                                        <p className='m-0 mx-2'> {item.chance_of_rain}&#x25;</p>
+                                    </div>
+                                </div>
+                            })}
+
+
                         </div>
                     </div>}
 
