@@ -13,9 +13,10 @@ export default function Home() {
       </Head>
       <main className='main' style={{ 'height': '100vh' }}>
         <Popup trigger={<button> Click to open popup </button>}
-          position="right center">
-          <div>GeeksforGeeks</div>
-          <button>Click here</button>
+          modal
+          nested
+        >
+          <div>HelloWeather</div>
         </Popup>
       </main>
     </>

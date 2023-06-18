@@ -2,7 +2,8 @@ import Head from 'next/head'
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot, faWind, faCloudRain, faTemperatureHalf, faDroplet, faArrowsToDot, faEye, faSun, faMoon, faCloudSun, faUpload, faDownload, faCloud, faUmbrella } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faWind, faCloudRain, faTemperatureHalf, faDroplet, faArrowsToDot, faEye, faSun, faMoon, faCloudSun, faUpload, faDownload, faCloud, faUmbrella, faC } from '@fortawesome/free-solid-svg-icons'
+import Popup from 'reactjs-popup'
 
 const weather = () => {
     const API_KEY = process.env.NEXT_PUBLIC_API_KEY
@@ -193,9 +194,9 @@ const weather = () => {
 
                         {/* hourly forecast  */}
                         <div className="weather-location text-light rounded bg-dark px-3 py-1">Today's Hourly forecast for {weather.location.name}, {weather.location.region}</div>
-                        <div className="hourly-forecast-container p-2">
+                        {/* <div className="hourly-forecast-container p-2">
                             {weather.forecast.forecastday[0].hour.map((item) => {
-                                return <div className="hourly-forecast-box toggle" key={item.time_epoch} onClick={function handleHourlyWeather() { console.log(item.time_epoch) }}>
+                                return <Popup key={item.time_epoch} trigger={<div className="hourly-forecast-box toggle" key={item.time_epoch}>
                                     <h6 className="timing">{item.time.slice(10, 16)}</h6>
                                     <h5 className="temp">{item.temp_c} &#8451;</h5>
                                     <img src={item.condition.icon} alt="weather icon" />
@@ -205,7 +206,65 @@ const weather = () => {
                                         <FontAwesomeIcon icon={faUmbrella} className='text-light' />
                                         <p className='m-0 mx-2'> {item.chance_of_rain}&#x25;</p>
                                     </div>
-                                </div>
+                                </div>}
+                                    position="center center">
+                                    <div className='text-light bg-dark' style={{ "width": "50vw" }}>GeeksforGeeks</div>
+                                </Popup>
+                            })}
+
+
+                        </div> */}
+
+                        <div className="hourly-forecast-container p-2">
+                            {weather.forecast.forecastday[0].hour.map((item) => {
+                                return <Popup
+                                    key={item.time_epoch}
+                                    trigger={
+                                        <div className="hourly-forecast-box toggle" key={item.time_epoch}>
+                                            <h6 className="timing">{item.time.slice(10, 16)}</h6>
+                                            <h5 className="temp">{item.temp_c} &#8451;</h5>
+                                            <img src={item.condition.icon} alt="weather icon" />
+                                            <div className="raining d-flex justify-content-center align-items-center mt-1">
+                                                <FontAwesomeIcon icon={faDroplet} className='text-light' />
+                                                <p className='m-0 mx-2'>{item.humidity} </p>
+                                                <FontAwesomeIcon icon={faUmbrella} className='text-light' />
+                                                <p className='m-0 mx-2'> {item.chance_of_rain}&#x25;</p>
+                                            </div>
+                                        </div>
+                                    }
+                                    modal
+                                    nested
+                                >
+                                    <div className="modal-container">
+                                        <div className="modal-title">{item.time}</div>
+                                        <div className="modal-body">
+                                            <h1 className="temp">{item.feelslike_c} &#8451;</h1>
+                                            <p className="condition-text">Real Feel</p>
+                                            <img src={item.condition.icon} alt="weather icon" />
+                                            <p className="condition-text">{item.condition.text}</p>
+                                            <div className="hourly-weather-details-container">
+                                                <div className="hourly-details-box">
+                                                    <FontAwesomeIcon icon={faWind} className='text-light' /> {item.wind_dir} {item.wind_kph} km/h
+                                                </div>
+                                                <div className="hourly-details-box">
+                                                    <FontAwesomeIcon icon={faArrowsToDot} className='text-light' /> {item.pressure_mb} mb
+                                                </div>
+                                                <div className="hourly-details-box">
+                                                    <FontAwesomeIcon icon={faCloud} className='text-light' /> {item.cloud} &#x25;
+                                                </div>
+                                                <div className="hourly-details-box">
+                                                    <FontAwesomeIcon icon={faSun} className='text-light' /> {item.uv}/10
+                                                </div>
+                                                <div className="hourly-details-box">
+                                                    <FontAwesomeIcon icon={faEye} className='text-light' /> {item.vis_km} km
+                                                </div>
+                                                <div className="hourly-details-box">
+                                                    <FontAwesomeIcon icon={faDroplet} className='text-light' />&deg; {item.dewpoint_c} &#8451;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Popup>
                             })}
 
 
