@@ -24,7 +24,7 @@
 /* customizing scrollbar ends here */
 
 body {
-  background: #1f2745;
+  /* background: #1f2745; */
   background: url('/home_bg.jpg');
   background-position: center center;
   background-repeat: no-repeat;
@@ -49,7 +49,7 @@ body {
 
 /* weather.js  */
 .weather-container {
-  background-color: #38388373;
+  /* background-color: #38388373; */
   background: linear-gradient(#3838838f, #38388300);
 }
 
