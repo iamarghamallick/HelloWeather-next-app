@@ -24,8 +24,8 @@
 /* customizing scrollbar ends here */
 
 body {
-  /* background: #1f2745; */
-  background: url('/home_bg.jpg');
+  /* background: url('/home_bg.jpg'); */
+  background-color: #383883;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -34,6 +34,17 @@ body {
 .navbar-toggler {
   background: #0d6dfd8f;
   color: rgba(0, 0, 0, 0.274);
+}
+
+.weather-js-container {
+  position: relative;
+  top: 0;
+  padding: 0.5rem 0;
+  background: url('/home_bg.jpg');
+  background-color: #10102b;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .top-locations-container {

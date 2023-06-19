@@ -83,7 +83,7 @@ const weather = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/logo.png" />
             </Head>
-            <div style={{ 'minHeight': '100vh' }}>
+            <div className='weather-js-container' style={{ 'minHeight': '100vh' }}>
                 <div className="container">
                     <div className="input-group mb-6 mt-3">
                         <span className="input-group-text" id="basic-addon1"><FontAwesomeIcon icon={faLocationDot} style={{ 'color': '#0d6efd' }} /></span>
