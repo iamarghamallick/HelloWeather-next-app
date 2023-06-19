@@ -1,3 +1,4 @@
+import Loader from '@/components/Loader'
 import Head from 'next/head'
 import 'reactjs-popup/dist/index.css'
 
@@ -11,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/logo.png" />
       </Head>
       <main className='main' style={{ 'height': '100vh' }}>
-        
+        <Loader />
       </main>
     </>
   )

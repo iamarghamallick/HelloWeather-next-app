@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faWind, faCloudRain, faTemperatureHalf, faDroplet, faArrowsToDot, faEye, faSun, faMoon, faCloudSun, faUpload, faDownload, faCloud, faUmbrella, faC, faCross, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import Popup from 'reactjs-popup'
+import Loader from '@/components/Loader'
 
 const weather = () => {
     const API_KEY = process.env.NEXT_PUBLIC_API_KEY
     let baseUrl = "https://api.weatherapi.com/v1/forecast.json?key=" + API_KEY + "&q="
 
+    const [loading, setLoading] = useState(false)
     const [query, setQuery] = useState("Kolkata")
     const [weather, setWeather] = useState("")
     const [london, setLondon] = useState("")
@@ -34,6 +36,7 @@ const weather = () => {
     };
 
     useEffect(() => {
+        setLoading(true);
         async function fetchData() {
             let london = await fetchWeather("London")
             setLondon(london)
@@ -41,7 +44,6 @@ const weather = () => {
             setKolkata(kolkata)
             let newyork = await fetchWeather("New York")
             setNewyork(newyork)
-
         }
         async function fetchLastWeather() {
             try {
@@ -54,19 +56,23 @@ const weather = () => {
         }
         localStorage.getItem('userLocation') && fetchLastWeather();
         fetchData();
+        setLoading(false);
     }, [])
 
     const handleChange = (e) => {
         setQuery(e.target.value)
     }
     const handleClick = async () => {
+        setLoading(true);
         let w = await fetchWeather(query)
         if (!w.error) {
             setWeather(w)
+            setLoading(false);
             setErrorInWeather(undefined)
             localStorage.setItem('userLocation', query)
         } else {
             setErrorInWeather(w)
+            setLoading(false);
         }
     }
     return (
@@ -84,9 +90,12 @@ const weather = () => {
                         <input type="text" className="form-control" placeholder="Your location" aria-label="Location" aria-describedby="basic-addon1" style={{ "background": "white" }} onChange={handleChange} />
                         <button className="btn btn-primary mx-2 border border-rounded" aria-current="page" onClick={handleClick} >Search</button>
                     </div>
-                    {errorInWeather && <div className="error-container">
-                        <p className="error-message text-center text-light">Sorry! {errorInWeather.error.message}</p>
+                    {(errorInWeather || loading) && <div className="error-loading-container m-2" style={{'height':'40px'}}>
+                        {errorInWeather && <div className="error-message text-center text-light">Sorry! {errorInWeather.error.message}</div>}
+                        {loading && <Loader />}
                     </div>}
+
+
 
                     {weather && <div className="weather-container my-3 rounded" >
                         {/* weather headline  */}
