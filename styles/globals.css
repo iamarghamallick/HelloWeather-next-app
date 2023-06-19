@@ -24,7 +24,7 @@
 /* customizing scrollbar ends here */
 
 body {
-  /* background: url('/home_bg.jpg'); */
+  background: url('/home_bg.jpg');
   background-color: #383883;
   background-position: center center;
   background-repeat: no-repeat;
