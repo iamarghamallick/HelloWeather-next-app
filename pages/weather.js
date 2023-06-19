@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot, faWind, faCloudRain, faTemperatureHalf, faDroplet, faArrowsToDot, faEye, faSun, faMoon, faCloudSun, faUpload, faDownload, faCloud, faUmbrella, faC } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faWind, faCloudRain, faTemperatureHalf, faDroplet, faArrowsToDot, faEye, faSun, faMoon, faCloudSun, faUpload, faDownload, faCloud, faUmbrella, faC, faCross, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import Popup from 'reactjs-popup'
 
 const weather = () => {
@@ -27,9 +27,11 @@ const weather = () => {
 
     }
 
-    // const handleHourlyWeather = (item)=> {
-    //     console.log(item.time_epoch)
-    // }
+    const [open, setOpen] = useState(false);
+    const closeModal = () => {
+        console.log("close modal")
+        setOpen(false)
+    };
 
     useEffect(() => {
         async function fetchData() {
@@ -78,7 +80,7 @@ const weather = () => {
             <div style={{ 'minHeight': '100vh' }}>
                 <div className="container">
                     <div className="input-group mb-6 mt-3">
-                        <span className="input-group-text" id="basic-addon1"><FontAwesomeIcon icon={faLocationDot} /></span>
+                        <span className="input-group-text" id="basic-addon1"><FontAwesomeIcon icon={faLocationDot} style={{ 'color': '#0d6efd' }} /></span>
                         <input type="text" className="form-control" placeholder="Your location" aria-label="Location" aria-describedby="basic-addon1" style={{ "background": "white" }} onChange={handleChange} />
                         <button className="btn btn-primary mx-2 border border-rounded" aria-current="page" onClick={handleClick} >Search</button>
                     </div>
@@ -217,10 +219,9 @@ const weather = () => {
 
                         <div className="hourly-forecast-container p-2">
                             {weather.forecast.forecastday[0].hour.map((item) => {
-                                return <Popup
-                                    key={item.time_epoch}
+                                return <Popup open={open} closeOnDocumentClick onClose={closeModal} key={item.time_epoch}
                                     trigger={
-                                        <div className="hourly-forecast-box toggle" key={item.time_epoch}>
+                                        <div onClick={() => setOpen(true)} className="hourly-forecast-box toggle" key={item.time_epoch}>
                                             <h6 className="timing">{item.time.slice(10, 16)}</h6>
                                             <h5 className="temp">{item.temp_c} &#8451;</h5>
                                             <img src={item.condition.icon} alt="weather icon" />
@@ -235,7 +236,7 @@ const weather = () => {
                                     modal
                                     nested
                                 >
-                                    <div className="modal-container">
+                                    {close => (<div className="modal-container">
                                         <div className="modal-title">{item.time}</div>
                                         <div className="modal-body">
                                             <h1 className="temp">{item.feelslike_c} &#8451;</h1>
@@ -262,16 +263,17 @@ const weather = () => {
                                                     <FontAwesomeIcon icon={faDroplet} className='text-light' />&deg; {item.dewpoint_c} &#8451;
                                                 </div>
                                             </div>
+                                            <div className="h-bar">____________</div>
+                                            <button onClick={() => { close(); }} className='btn bg-dark mt-2'><FontAwesomeIcon icon={faCircleXmark} className='text-light' /></button>
                                         </div>
-                                    </div>
+                                    </div>)}
                                 </Popup>
                             })}
-
-
                         </div>
+                        <button className='d-none'></button>
                     </div>}
 
-                    <h2 className="heading text-light text-center m-4">Top Locations Around The Globe</h2>
+                    <h2 className="heading text-light text-center m-4">Around The Globe</h2>
 
                     <div className="top-locations-container mb-3">
                         {london && <div className="card top-location-card">

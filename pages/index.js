@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 
 export default function Home() {
@@ -12,12 +11,7 @@ export default function Home() {
         <link rel="icon" href="/logo.png" />
       </Head>
       <main className='main' style={{ 'height': '100vh' }}>
-        <Popup trigger={<button> Click to open popup </button>}
-          modal
-          nested
-        >
-          <div>HelloWeather</div>
-        </Popup>
+        
       </main>
     </>
   )

@@ -25,10 +25,15 @@
 
 body {
   background: #1f2745;
+  background: url('/home_bg.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .navbar-toggler {
-  background: #0d6efd;
+  background: #0d6dfd8f;
+  color: rgba(0, 0, 0, 0.274);
 }
 
 .top-locations-container {
@@ -44,7 +49,8 @@ body {
 
 /* weather.js  */
 .weather-container {
-  background-color: #383883;
+  background-color: #38388373;
+  background: linear-gradient(#3838838f, #38388300);
 }
 
 .weather-headline-left .temp {
@@ -80,7 +86,8 @@ body {
 }
 
 .quick-forecast-box {
-  background: #1f2745;
+  background: #1f2745ad;
+  border: 1px solid white;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -110,13 +117,13 @@ body {
 }
 
 .current-details-box {
-  background: #1f2745;
+  background: #1f274579;
   border-radius: 10px;
   display: flex;
   width: 100%;
   justify-content: space-between;
   padding: 0.5rem 1rem;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgb(155, 155, 155);
 }
 
 .sunrise-set {
@@ -124,6 +131,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.sunrise-set span {
+  padding-bottom: 10px;
 }
 
 /* hourly forecast box  */
@@ -138,14 +149,14 @@ body {
 
 .hourly-forecast-box {
   cursor: pointer;
-  background: #1f2745;
+  background: #1f2745ad;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0.2rem;
-  margin: 0 0.2rem;
+  margin: 0.1 0.2rem;
   min-width: 130px;
 }
 
