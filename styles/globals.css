@@ -32,7 +32,7 @@ body {
 }
 
 .navbar-toggler {
-  background: #0d6dfd8f;
+  background: gray;
   color: rgba(0, 0, 0, 0.274);
 }
 
@@ -193,7 +193,13 @@ body {
   border: 1px solid white;
   border-radius: 10px;
   color: white;
-  background-color: #282864;
+  background: url('/home_bg.jpg');
+  background-color: #262683;
+  background-color: #10102b;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0px 0px 500px 200px black;
 }
 
 .modal-body {

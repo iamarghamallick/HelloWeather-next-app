@@ -36,7 +36,6 @@ const weather = () => {
     };
 
     useEffect(() => {
-        setLoading(true);
         async function fetchData() {
             let london = await fetchWeather("London")
             setLondon(london)
@@ -44,19 +43,22 @@ const weather = () => {
             setKolkata(kolkata)
             let newyork = await fetchWeather("New York")
             setNewyork(newyork)
+            setLoading(false);
         }
         async function fetchLastWeather() {
             try {
                 let weather = await fetch(baseUrl + localStorage.getItem('userLocation'))
                 let response = await weather.json()
                 setWeather(response)
+                setLoading(false);
             } catch (err) {
+                setLoading(false);
                 console.log(err);
             }
         }
+        setLoading(true);
         localStorage.getItem('userLocation') && fetchLastWeather();
         fetchData();
-        setLoading(false);
     }, [])
 
     const handleChange = (e) => {
@@ -182,7 +184,7 @@ const weather = () => {
                             <div className="current-weather-details-container-right">
                                 <div className="sunrise-set">
                                     <span className=''><FontAwesomeIcon icon={faSun} className='fa-3x text-light' /></span>
-                                    <p className='text-center'><FontAwesomeIcon icon={faUpload} className='text-light' /> {weather.forecast.forecastday[0].astro.sunrise} <FontAwesomeIcon icon={faDownload} className='text-light' /> {weather.forecast.forecastday[0].astro.sunset}</p>
+                                    <p className='text-center'><FontAwesomeIcon icon={faUpload} className='text-light' /> {weather.forecast.forecastday[0].astro.sunrise} &nbsp; &nbsp; <FontAwesomeIcon icon={faDownload} className='text-light' /> {weather.forecast.forecastday[0].astro.sunset}</p>
                                 </div>
                                 <div className="current-details-box">
                                     <div className="current-details-box-left"><FontAwesomeIcon icon={faWind} className='text-light' /> Wind</div>
